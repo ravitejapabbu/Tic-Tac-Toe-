@@ -1,3 +1,4 @@
+document.addEventListener('contextmenu',event => event.preventDefault());
 let game = document.querySelector(".gameboard");
 let boxes = document.querySelectorAll(".box");
 let resetBtn = document.querySelector("#reset-btn");
