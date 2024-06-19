@@ -43,6 +43,7 @@ newGameBtn.onclick = () =>{
     game.classList.remove('disableclk');
 }
 modeBtn.onclick =()=>{
+    reset();
     if(botMode){
         botMode = false;
         modeBtn.innerText ="2-player mode";
