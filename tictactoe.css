@@ -5,6 +5,7 @@
   font-family: "poppins", sans-serif;
   box-sizing: border-box;
   text-align: center;
+  user-select: none;
 }
 
 :root {
@@ -118,7 +119,6 @@ header h1 {
 
 .disableclk {
   pointer-events: none;
-  filter: grayscale(100%);
   transition: all 0.5s;
 }
 

@@ -6,6 +6,7 @@ let newGameBtn = document.querySelector("#newgame-btn");
 let winnerBoard = document.querySelector('#winnerboard');
 let userx = true;
 let botMode = false;
+let cont = true;
 let count = 0;
 let winningPatterns = [
     [0, 1, 2],
@@ -20,11 +21,12 @@ let winningPatterns = [
 
 
 let reset = () =>{
-    boxes.forEach((box)=>{
+        boxes.forEach((box)=>{
         box.innerText = "";
         box.disabled = false;
     })
     userx = true;
+    cont= true;
 }
 let displayWinner = (name) =>{
     document.querySelector("#winnerboard h1").innerText = name;
@@ -57,6 +59,7 @@ modeBtn.onclick =()=>{
 
 // bot player
 function botPlay(){
+    game.classList.remove('disableclk');
     for(index=0;index<winningPatterns.length;index++){
         let arr = winningPatterns[index].map(index=> {return boxes[index].innerText||false});
         if(arr[0]==="O"&arr[1]==="O"||arr[1]==="O"&arr[2]==="O"||arr[0]==="O"&arr[2]==="O"){
@@ -65,7 +68,7 @@ function botPlay(){
                     boxes[value].innerText ="O";
                     boxes[value].disabled =true;
                     userx = true;
-                    displayWinner("congratulations,\n player-o won the game");
+                    displayWinner("You Lost the Game,\n Better Luck Next Time");
                 }
             })
             if(userx){
@@ -133,8 +136,12 @@ boxes.forEach((box)=>{
     else{
         box.innerText ="X";
         box.disabled =true;
-        userx = false;
-        setTimeout(botPlay,300);
+        game.click();
+        game.classList.add('disableclk');
+        if(cont) {
+           userx = false;
+           setTimeout(botPlay,300);
+        }
     }
   })
 });
@@ -148,7 +155,11 @@ game.onclick = () =>{
         })
         if(arr[0]!=0 && arr[1]!=0 && arr[2]!=0){
             if(arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == "X"){
-                displayWinner("congratulations,\n player-x won the game");
+                if(!botMode) displayWinner("congratulations,\n player-x won the game");
+                else {
+                    cont =false;
+                    displayWinner("congratulations,\n you won the game");
+                }
             }else if(arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == "O"){
                 displayWinner("congratulations,\n player-o won the game");
             }else{
